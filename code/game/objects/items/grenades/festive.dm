@@ -65,7 +65,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	throw_speed = 3
 	throw_range = 7
 	det_time = 30
@@ -84,7 +84,7 @@
 /obj/item/grenade/firecracker/fire_act(exposed_temperature, exposed_volume)
 	prime()
 
-obj/item/grenade/firecracker/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/grenade/firecracker/wirecutter_act(mob/living/user, obj/item/I)
 	if(active)
 		return
 	if(det_time)
@@ -96,7 +96,7 @@ obj/item/grenade/firecracker/wirecutter_act(mob/living/user, obj/item/I)
 	else
 		to_chat(user, "<span class='danger'>You've already removed all of the fuse!</span>")
 
-obj/item/grenade/firecracker/preprime(mob/user, delayoverride, msg = TRUE, volume = 80)
+/obj/item/grenade/firecracker/preprime(mob/user, delayoverride, msg = TRUE, volume = 80)
 	var/turf/T = get_turf(src)
 	log_grenade(user, T)
 	if(user)

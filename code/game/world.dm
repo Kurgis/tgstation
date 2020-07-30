@@ -23,6 +23,9 @@ GLOBAL_VAR(restart_counter)
 	if (fexists(extools))
 		call(extools, "maptick_initialize")()
 	enable_debugger()
+#ifdef REFERENCE_TRACKING
+	enable_reference_tracking()
+#endif
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 #if DM_BUILD >= 1506
@@ -35,7 +38,7 @@ GLOBAL_VAR(restart_counter)
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
-	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = GLOB.world_shuttle_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
+	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = GLOB.world_econ_log = GLOB.world_shuttle_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
 	GLOB.revdata = new
 
@@ -92,7 +95,7 @@ GLOBAL_VAR(restart_counter)
 #else
 	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
 #endif
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/addtimer, cb, 10 SECONDS))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/_addtimer, cb, 10 SECONDS))
 
 /world/proc/SetupExternalRSC()
 #if (PRELOAD_RSC == 0)
@@ -133,6 +136,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
+	GLOB.world_econ_log = "[GLOB.log_directory]/econ.log"
 	GLOB.world_pda_log = "[GLOB.log_directory]/pda.log"
 	GLOB.world_telecomms_log = "[GLOB.log_directory]/telecomms.log"
 	GLOB.world_manifest_log = "[GLOB.log_directory]/manifest.log"
@@ -151,11 +155,12 @@ GLOBAL_VAR(restart_counter)
 	GLOB.demo_log = "[GLOB.log_directory]/demo.log"
 
 #ifdef UNIT_TESTS
-	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
+	GLOB.test_log = "[GLOB.log_directory]/tests.log"
 	start_log(GLOB.test_log)
 #endif
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_attack_log)
+	start_log(GLOB.world_econ_log)
 	start_log(GLOB.world_pda_log)
 	start_log(GLOB.world_telecomms_log)
 	start_log(GLOB.world_manifest_log)

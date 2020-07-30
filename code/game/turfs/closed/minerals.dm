@@ -5,7 +5,7 @@
 	icon = 'icons/turf/mining.dmi'
 	icon_state = "rock"
 	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = null
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -111,6 +111,14 @@
 	if(do_after(M, 40, target = src))
 		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
 		gets_drilled(M)
+
+/turf/closed/mineral/attack_hulk(mob/living/carbon/human/H)
+	..()
+	if(do_after(H, 50, target = src))
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+		H.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+		gets_drilled(H)
+	return TRUE
 
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
@@ -246,7 +254,7 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
 	icon_state = "mountainrock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
 	defer_change = TRUE
 	environment_type = "snow_cavern"
@@ -315,7 +323,7 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
 	icon_state = "mountainrock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
 	defer_change = TRUE
 	environment_type = "snow"
@@ -566,7 +574,7 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
 	icon_state = "rock2"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
@@ -579,7 +587,7 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
 	icon_state = "mountainrock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
 	baseturfs = /turf/open/floor/plating/asteroid/snow
 	initial_gas_mix = FROZEN_ATMOS
@@ -597,7 +605,7 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	icon_state = "icerock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	smoothing_flags = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	environment_type = "snow_cavern"

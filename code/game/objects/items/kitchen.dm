@@ -19,7 +19,7 @@
 	name = "fork"
 	desc = "Pointy."
 	icon_state = "fork"
-	force = 5
+	force = 4
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
@@ -30,6 +30,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	item_flags = EYE_STAB
+	sharpness = SHARP_POINTY
 	var/datum/reagent/forkload //used to eat omelette
 
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
@@ -73,7 +74,7 @@
 /obj/item/kitchen/knife
 	name = "kitchen knife"
 	icon_state = "knife"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags_1 = CONDUCT_1
 	force = 10
@@ -83,12 +84,14 @@
 	throw_speed = 3
 	throw_range = 6
 	custom_materials = list(/datum/material/iron=12000)
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sharpness = IS_SHARP_ACCURATE
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "lacerated", "ripped", "diced", "cut")
+	sharpness = SHARP_EDGED
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	item_flags = EYE_STAB
 	var/bayonet = FALSE	//Can this be attached to a gun?
 	custom_price = 250
+	wound_bonus = -5
+	bare_wound_bonus = 10
 
 /obj/item/kitchen/knife/ComponentInitialize()
 	. = ..()
@@ -107,7 +110,7 @@
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
 	icon_state = "plastic_knife"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	desc = "A very safe, barely sharp knife made of plastic. Good for cutting food and not much else."
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -115,7 +118,7 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/plastic = 100)
 	attack_verb = list("prodded", "whiffed","scratched", "poked")
-	sharpness = IS_SHARP
+	sharpness = SHARP_EDGED
 	custom_price = 50
 	var/break_chance = 25
 
@@ -159,20 +162,20 @@
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	icon_state = "butch"
-	item_state = "butch"
+	inhand_icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown by-products."
 	flags_1 = CONDUCT_1
 	force = 15
 	throwforce = 10
 	custom_materials = list(/datum/material/iron=18000)
-	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "lacerated", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 600
 
 /obj/item/kitchen/knife/hunting
 	name = "hunting knife"
 	desc = "Despite its name, it's mainly used for cutting meat from dead prey rather than actual hunting."
-	item_state = "huntingknife"
+	inhand_icon_state = "huntingknife"
 	icon_state = "huntingknife"
 
 /obj/item/kitchen/knife/hunting/set_butchering()
@@ -185,7 +188,7 @@
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE)
 	force = 20
 	throwforce = 20
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "lacerated", "ripped", "cut")
 	bayonet = TRUE
 
 /obj/item/kitchen/knife/combat/survival
@@ -199,7 +202,7 @@
 
 /obj/item/kitchen/knife/combat/bone
 	name = "bone dagger"
-	item_state = "bone_dagger"
+	inhand_icon_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -219,7 +222,7 @@
 	name = "glass shiv"
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "shiv"
-	item_state = "shiv"
+	inhand_icon_state = "shiv"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A makeshift glass shiv."
@@ -232,7 +235,7 @@
 /obj/item/kitchen/knife/shiv/carrot
 	name = "carrot shiv"
 	icon_state = "carrotshiv"
-	item_state = "carrotshiv"
+	inhand_icon_state = "carrotshiv"
 	icon = 'icons/obj/kitchen.dmi'
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
 	custom_materials = null
